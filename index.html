@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rohit Kalyan Kandulapati</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c0c0c;
+      --fg: #d4d0c8;
+      --dim: #4a4845;
+      --green: #7aa87a;
+      --green-bright: #9ec89e;
+      --line: #1e1e1b;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Geist Mono', monospace;
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 1.7;
+      min-height: 100vh;
+      padding: 5rem 1.5rem 5rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 580px;
+    }
+
+    /* ── site nav ── */
+    .site-nav {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .site-nav a {
+      font-size: 0.65rem;
+      color: var(--dim);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .site-nav a:hover { color: var(--fg); }
+    .site-nav a.active { color: var(--green); }
+    .site-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--green);
+    }
+
+    /* ── animation ── */
+    .anim {
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .anim.show { opacity: 1; }
+
+    /* ── layout ── */
+    .row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      line-height: 1.7;
+    }
+
+    .prompt { color: var(--green); flex-shrink: 0; user-select: none; }
+    .cmd    { color: var(--fg); }
+
+    .out     { color: var(--fg); }
+    .out-dim { color: var(--dim); }
+
+    .name-out {
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      font-weight: 400;
+      color: var(--fg);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    /* green italic highlights */
+    .name-em { font-style: italic; color: var(--green); font-weight: 300; }
+    .hl      { font-style: italic; color: var(--green); }
+
+    /* cursor */
+    .cursor {
+      display: inline-block;
+      width: 7px;
+      height: 0.85em;
+      background: var(--green);
+      vertical-align: text-bottom;
+      margin-left: 1px;
+      animation: blink 1.1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .cursor.off { display: none; }
+
+    /* spacing */
+    .gap-sm { margin-top: 0.6rem; }
+    .gap-md { margin-top: 1.4rem; }
+    .gap-lg { margin-top: 2.2rem; }
+
+    /* skills */
+    .skills-row { flex-wrap: wrap; align-items: baseline; }
+    .skill {
+      color: var(--dim);
+      cursor: default;
+      transition: color 0.15s;
+      font-size: 13px;
+    }
+    .skill:hover { color: var(--green); }
+    .sep-dot { color: #2a2a27; margin: 0 0.35rem; font-size: 13px; }
+
+    /* icon links */
+    .icon-links { display: flex; flex-direction: column; gap: 0.35rem; }
+    .icon-links a {
+      color: var(--dim);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: color 0.15s;
+    }
+    .icon-links a:hover,
+    .icon-links a:hover span { color: var(--green); }
+    .icon-links svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .icon-links span { color: var(--fg); font-size: 13px; }
+
+    /* divider */
+    .term-divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 1.8rem 0;
+    }
+
+    /* post list */
+    .post-list { list-style: none; }
+    .post-list li { display: flex; gap: 0.5rem; line-height: 1.7; }
+    .post-list .bullet { color: var(--green); flex-shrink: 0; }
+    .post-list a {
+      color: var(--fg);
+      text-decoration: none;
+      display: flex;
+      justify-content: space-between;
+      flex: 1;
+      gap: 1rem;
+      transition: color 0.15s;
+    }
+    .post-list a:hover { color: var(--green-bright); }
+    .post-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .post-date  { color: var(--dim); flex-shrink: 0; font-size: 11px; }
+    .post-empty { color: var(--dim); }
+
+    /* hand-drawn all posts */
+    .blog-all {
+      display: block;
+      margin-top: 1rem;
+      text-decoration: none;
+      width: fit-content;
+    }
+    .blog-all .hand-text {
+      fill: var(--green);
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .blog-all:hover .hand-text { opacity: 0.7; }
+
+    @media (max-width: 480px) {
+      body { padding: 4rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+<main>
+
+  <nav class="site-nav">
+    <a href="/" class="active">home</a>
+    <a href="/blog">blog</a>
+  </nav>
+
+  <!-- whoami -->
+  <div class="row anim" id="s1">
+    <span class="prompt">~$</span>
+    <span class="cmd" id="cmd1"></span><span class="cursor" id="cur1"></span>
+  </div>
+  <div class="row gap-sm anim" id="s2">
+    <span class="name-out">Rohit <em class="name-em">Kalyan</em> Kandulapati</span>
+  </div>
+
+  <!-- cat about.txt -->
+  <div class="row gap-md anim" id="s3">
+    <span class="prompt">~$</span>
+    <span class="cmd" id="cmd2"></span><span class="cursor" id="cur2"></span>
+  </div>
+  <div class="anim" id="s4" style="opacity:0">
+    <div class="row gap-sm" style="opacity:0"><span class="out">DevOps Engineer based in Hyderabad, India.</span></div>
+    <div class="row" style="opacity:0"><span class="out">2+ years running <em class="hl">Kubernetes</em> on <em class="hl">AWS</em> — EKS migrations,</span></div>
+    <div class="row" style="opacity:0"><span class="out">CI/CD pipelines, and automating what drains engineering teams.</span></div>
+    <div class="row" style="opacity:0"><span class="out">Currently at <em class="hl">Carelon Global Solutions</em>. <em class="hl">CKA certified.</em></span></div>
+  </div>
+
+  <!-- cat skills.txt -->
+  <div class="row gap-md anim" id="s5">
+    <span class="prompt">~$</span>
+    <span class="cmd" id="cmd3"></span><span class="cursor" id="cur3"></span>
+  </div>
+  <div class="row gap-sm skills-row anim" id="s6">
+    <span class="skill">kubernetes</span><span class="sep-dot">·</span><span class="skill">eks</span><span class="sep-dot">·</span><span class="skill">aws</span><span class="sep-dot">·</span><span class="skill">terraform</span><span class="sep-dot">·</span><span class="skill">jenkins</span><span class="sep-dot">·</span><span class="skill">github actions</span><span class="sep-dot">·</span><span class="skill">argo cd</span><span class="sep-dot">·</span><span class="skill">docker</span><span class="sep-dot">·</span><span class="skill">ansible</span><span class="sep-dot">·</span><span class="skill">python</span><span class="sep-dot">·</span><span class="skill">bash</span>
+  </div>
+
+  <!-- cat links.txt -->
+  <div class="row gap-md anim" id="s7">
+    <span class="prompt">~$</span>
+    <span class="cmd" id="cmd4"></span><span class="cursor" id="cur4"></span>
+  </div>
+  <div class="icon-links gap-sm anim" id="s8" style="opacity:0">
+    <a href="https://github.com/rohit-kandulapati" style="opacity:0" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      <span>github.com/rohit-kandulapati</span>
+    </a>
+    <a href="https://linkedin.com/in/rohit-kandulapati" style="opacity:0" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      <span>linkedin.com/in/rohit-kandulapati</span>
+    </a>
+    <a href="mailto:rohitkalyan.kandulapati@gmail.com" style="opacity:0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span>rohitkalyan.kandulapati@gmail.com</span>
+    </a>
+  </div>
+
+  <hr class="term-divider anim" id="s9">
+
+  <!-- ls posts/ -->
+  <div class="row anim" id="s10">
+    <span class="prompt">~$</span>
+    <span class="cmd" id="cmd5"></span><span class="cursor" id="cur5"></span>
+  </div>
+
+  <ul class="post-list gap-sm anim" id="post-list-wrap">
+    <li><span class="post-empty out-dim">no posts yet — check back soon.</span></li>
+  </ul>
+
+  <div class="anim" id="s11">
+    <a href="/blog" class="blog-all" aria-label="All posts">
+      <svg width="130" height="24" viewBox="0 0 130 24" overflow="visible">
+        <text class="hand-text" x="2" y="18" transform="rotate(-3,2,18)">all posts →</text>
+      </svg>
+    </a>
+  </div>
+
+  <!-- open prompt -->
+  <div class="row gap-lg anim" id="s12">
+    <span class="prompt">~$</span>
+    <span class="cursor"></span>
+  </div>
+
+</main>
+<script data-cfasync="false">
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  function show(id) {
+    const el = document.getElementById(id);
+    if (el) { el.style.opacity = '1'; el.style.transition = 'none'; }
+  }
+
+  function hideCursor(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('off');
+  }
+
+  async function type(cmdId, text, speed) {
+    const el = document.getElementById(cmdId);
+    if (!el) return;
+    for (const ch of text) {
+      el.textContent += ch;
+      await sleep(speed + Math.random() * 18);
+    }
+  }
+
+  async function showLines(parentId, delayBetween) {
+    const parent = document.getElementById(parentId);
+    if (!parent) return;
+    parent.style.opacity = '1';
+    for (const line of parent.children) {
+      line.style.opacity = '1';
+      await sleep(delayBetween);
+    }
+  }
+
+  async function run() {
+    await sleep(400);
+
+    show('s1');
+    await type('cmd1', 'whoami', 70);
+    await sleep(120);
+    hideCursor('cur1');
+    show('s2');
+    await sleep(350);
+
+    show('s3');
+    await type('cmd2', 'cat about.txt', 60);
+    await sleep(120);
+    hideCursor('cur2');
+    await showLines('s4', 80);
+    await sleep(300);
+
+    show('s5');
+    await type('cmd3', 'cat skills.txt', 60);
+    await sleep(120);
+    hideCursor('cur3');
+    show('s6');
+    await sleep(300);
+
+    show('s7');
+    await type('cmd4', 'cat links.txt', 60);
+    await sleep(120);
+    hideCursor('cur4');
+    await showLines('s8', 100);
+    await sleep(300);
+
+    show('s9');
+    await sleep(180);
+
+    show('s10');
+    await type('cmd5', 'ls -lt posts/ | head -3', 48);
+    await sleep(120);
+    hideCursor('cur5');
+    show('post-list-wrap');
+    await sleep(200);
+
+    show('s11');
+    await sleep(120);
+    show('s12');
+  }
+
+  run();
+
+  (async () => {
+    try {
+      const res = await fetch('/posts-json/');
+      if (!res.ok) return;
+      const files = await res.json();
+      const posts = files
+        .filter(f => f.name.endsWith('.html') && f.name !== 'post-template.html')
+        .sort((a, b) => new Date(b.mtime) - new Date(a.mtime))
+        .slice(0, 3);
+      if (!posts.length) return;
+      const list = document.getElementById('post-list-wrap');
+      list.innerHTML = posts.map(f => {
+        const title = f.name.replace('.html','').split('-')
+          .map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        const label = new Date(f.mtime).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        return '<li><span class="bullet">-rw</span><a href="/blog/' + f.name + '"><span class="post-title">' + title + '</span><span class="post-date">' + label + '</span></a></li>';
+      }).join('');
+    } catch(e) {}
+  })();
+</script>
+</body>
+</html>

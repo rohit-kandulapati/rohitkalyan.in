@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CHANGE: Update title -->
+  <title>Your Post Title — Rohit Kalyan Kandulapati</title>
+  <!-- CHANGE: comma-separated tags -->
+  <meta name="tags" content="EKS,DevOps">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0e0e0e;
+      --fg: #e8e4dc;
+      --muted: #5a5650;
+      --accent: #c8b89a;
+      --line: #1f1e1c;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Geist Mono', monospace;
+      font-weight: 300;
+      padding: 4rem 1.5rem 6rem;
+      letter-spacing: -0.01em;
+    }
+
+    article {
+      width: 100%;
+      max-width: 580px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: rise 0.7s ease forwards 0.1s;
+    }
+
+    @keyframes rise {
+      to { opacity: 1; transform: none; }
+    }
+
+
+    /* ── site nav ── */
+    .site-nav {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .site-nav a {
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+      border: none;
+    }
+    .site-nav a:hover { color: var(--fg); border: none; }
+    .site-nav a.active {
+      color: var(--accent);
+    }
+    .site-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* ── Nav ── */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+      transition: color 0.2s;
+    }
+    .back:hover { color: var(--accent); }
+    .back svg { width: 10px; height: 10px; transition: transform 0.2s; }
+    .back:hover svg { transform: translateX(-3px); }
+
+    /* ── Header ── */
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .post-date {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .post-tag {
+      font-size: 0.58rem;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 0.15rem 0.45rem;
+      border-radius: 2px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Body copy ── */
+    .content { font-size: 0.82rem; line-height: 1.85; color: #b0ac a4; }
+    .content { color: #a8a49c; }
+
+    .content p { margin-bottom: 1.5rem; }
+
+    .content h2 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--fg);
+      margin: 2.5rem 0 0.9rem;
+    }
+
+    .content h3 {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--fg);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin: 2rem 0 0.75rem;
+    }
+
+    .content a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid #3a3530;
+      transition: border-color 0.2s;
+    }
+    .content a:hover { border-color: var(--accent); }
+    /* ensure nav links are never styled as content links */
+    .site-nav a { color: var(--muted) !important; text-decoration: none !important; border-bottom: none !important; }
+    .site-nav a:hover { color: var(--fg) !important; }
+    .site-nav a.active { color: var(--accent) !important; }
+
+    .content ul, .content ol {
+      padding-left: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .content li { margin-bottom: 0.4rem; }
+
+    .content strong { color: var(--fg); font-weight: 500; }
+
+    .content em { font-style: italic; color: var(--accent); }
+
+    /* ── Code ── */
+    .content code {
+      font-family: 'Geist Mono', monospace;
+      font-size: 0.75rem;
+      background: #161614;
+      color: #c8b89a;
+      padding: 0.15em 0.45em;
+      border-radius: 3px;
+      border: 1px solid var(--line);
+    }
+
+    .content pre {
+      background: #0a0a09;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.73rem;
+      color: #b0ab a3;
+      color: #9e9a92;
+      line-height: 1.7;
+    }
+
+    /* ── Callout / tip box ── */
+    .callout {
+      border-left: 2px solid var(--accent);
+      padding: 0.9rem 1.25rem;
+      margin-bottom: 1.5rem;
+      background: #111110;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── Footer ── */
+    .post-footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.62rem;
+      color: #3a3834;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .post-footer a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .post-footer a:hover { color: var(--accent); }
+
+    @media (max-width: 480px) {
+      .post-footer { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+<article>
+
+  <nav class="site-nav">
+    <a href="/">home</a>
+    <a href="/blog" class="active">blog</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       CHANGE: post metadata
+  ════════════════════════════════════════ -->
+  <div class="post-meta">
+    <span class="post-date">March 2026</span>       <!-- date -->
+    <span class="post-tag">EKS</span>               <!-- topic tag -->
+  </div>
+
+  <!-- CHANGE: headline — wrap key phrase in <em> for italic accent -->
+  <h1>Your Post <em>Title</em> Goes Here</h1>
+
+  <!-- CHANGE: one-sentence summary shown under the title -->
+  <p class="subtitle">A short description of what this post is about and why it matters.</p>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       CHANGE: post body — write freely below
+       Available elements:
+         <p>          — paragraph
+         <h2>         — section heading (serif)
+         <h3>         — sub-heading (mono caps)
+         <ul>/<ol>    — lists
+         <code>       — inline code
+         <pre><code>  — code block
+         <strong>     — bold
+         <em>         — italic accent
+         <a href="">  — link
+         <div class="callout"> — tip/note box
+  ════════════════════════════════════════ -->
+  <div class="content">
+
+    <p>
+      Start with the problem. What were you trying to solve, and why did it matter?
+      Give the reader context before diving into the solution.
+    </p>
+
+    <h2>Background</h2>
+
+    <p>
+      Explain the setup. What did the system look like before you started?
+      What was the pain point?
+    </p>
+
+    <h3>The Core Idea</h3>
+
+    <p>
+      Describe the approach you took. Be specific — readers are here for the details.
+    </p>
+
+    <div class="callout">
+      💡 Use this box for tips, warnings, or things you wish you'd known earlier.
+    </div>
+
+    <h2>Implementation</h2>
+
+    <p>
+      Walk through what you actually did. Include commands, configs, and code
+      where useful.
+    </p>
+
+    <!-- Code block example -->
+    <pre><code># Example command or config
+kubectl apply -f deployment.yaml
+kubectl rollout status deployment/my-app</code></pre>
+
+    <p>
+      Explain what the code above does and why you made those choices.
+    </p>
+
+    <h2>Results</h2>
+
+    <p>
+      What was the outcome? Numbers are powerful here — downtime reduced,
+      hours saved, incidents avoided.
+    </p>
+
+    <h2>Takeaways</h2>
+
+    <ul>
+      <li>First lesson learned</li>
+      <li>Second lesson learned</li>
+      <li>What you'd do differently</li>
+    </ul>
+
+  </div>
+  <!-- end .content -->
+
+  <div class="post-footer">
+    <span>Rohit Kalyan Kandulapati</span>
+    <a href="/blog">← All posts</a>
+  </div>
+
+</article>
+</body>
+</html>
