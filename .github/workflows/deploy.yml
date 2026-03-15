@@ -37,11 +37,6 @@ jobs:
           host: ${{ secrets.TAILSCALE_SERVER_IP }}
           username: deploy
           key: ${{ secrets.SSH_KEY }}
-          port: 22
-          fingerprint: ${{ secrets.TAILSCALE_FINGERPRINT }}
-          timeout: 30s
-          command_timeout: 10m
-          debug: true
           script: |
             echo "Connected to server"
             sudo /usr/local/bin/deploy/deploy-rohitkalyan.sh
