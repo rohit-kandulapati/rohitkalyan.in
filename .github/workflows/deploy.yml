@@ -21,7 +21,6 @@ jobs:
         uses: tailscale/github-action@v2
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          tags: tag:ci
 
       - name: Wait for Tailscale connection
         run: sleep 5
@@ -30,6 +29,7 @@ jobs:
         run: |
           ping -c 4 ${{ secrets.TAILSCALE_SERVER_IP }}
           nc -zv ${{ secrets.TAILSCALE_SERVER_IP }} 22
+          ssh-keyscan -v ${{ secrets.TAILSCALE_SERVER_IP }} || true
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
@@ -38,6 +38,7 @@ jobs:
           username: deploy
           key: ${{ secrets.SSH_KEY }}
           port: 22
+          fingerprint: ${{ secrets.TAILSCALE_FINGERPRINT }}
           timeout: 30s
           command_timeout: 10m
           debug: true
