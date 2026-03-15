@@ -3,35 +3,28 @@ on:
   workflow_dispatch:
   workflow_run:
     workflows:
-      - "Build, Update docker-compose.yaml"
+    - "Build, Update docker-compose.yaml"
     types:
-      - completed
+    - completed
     branches:
-      - main
+    - main
 jobs:
   deploy:
     name: Deploy using Docker Compose
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch'}}
     steps:
-      - name: Join Tailscale Network
-        uses: tailscale/github-action@v2
-        with:
-          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          tags: tag:ci
+    - name: Join tailscale network
+      uses: tailscale/github-action@v4
+      with:
+        oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+        oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+        # authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
-      - name: Wait for Tailscale connection
-        run: sleep 5
-
-      - name: Setup SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan ${{ secrets.TAILSCALE_SERVER_IP }} >> ~/.ssh/known_hosts
-
-      - name: Deploy via SSH
-        run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
-            deploy@${{ secrets.TAILSCALE_SERVER_IP }} \
-            "echo 'Connected to server' && sudo /usr/local/bin/deploy/deploy-rohitkalyan.sh"
+    - name: SSH and Deploy
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.TAILSCALE_SERVER_IP }}
+        username: deploy
+        key: ${{ secrets.SSH_KEY }}
+        script: sudo /usr/local/bin/deploy/deploy-rohitkalyan.sh
