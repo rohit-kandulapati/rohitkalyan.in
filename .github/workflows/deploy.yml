@@ -28,4 +28,4 @@ jobs:
         host: ${{ secrets.TAILSCALE_SERVER_IP }}
         username: deploy
         key: ${{ secrets.SSH_KEY }}
-        script: sudo -u deploy sudo /usr/local/bin/deploy/deploy-rohitkalyan.sh
+        script: sudo /usr/local/bin/deploy/deploy-rohitkalyan.sh
