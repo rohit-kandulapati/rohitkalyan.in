@@ -23,6 +23,9 @@ jobs:
       run: |
         tailscale status
         ping -c 4 ${{ secrets.TAILSCALE_SERVER_IP }}
+    - name: Check SSH port
+      run: |
+        nc -zv ${{ secrets.TAILSCALE_SERVER_IP }} 22
 
     - name: SSH and Deploy
       uses: appleboy/ssh-action@v1
