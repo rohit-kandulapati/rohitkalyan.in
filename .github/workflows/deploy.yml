@@ -14,6 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch'}}
     steps:
+    - name: Debug Tailscale
+      run: |
+        tailscale status
+        ping -c 4 ${{ secrets.TAILSCALE_SERVER_IP }}
     - name: Join tailscale network
       uses: tailscale/github-action@v2
       with:
