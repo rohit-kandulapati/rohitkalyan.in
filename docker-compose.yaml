@@ -1,6 +1,6 @@
 services:
   web:
-    image: test-nginx:7
+    image: rohitkalyan18/rohitkalyan.in:sha-2f5148e9e44f2dc17c9c0bbf3c376fdf8cdbcc4c
     ports:
     - 1810:80
     restart: "unless-stopped"
