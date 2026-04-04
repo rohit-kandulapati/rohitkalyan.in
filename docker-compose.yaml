@@ -1,6 +1,6 @@
 services:
   web:
-    image: rohitkalyan18/rohitkalyan.in:sha-6326cf8e554b9941d3cdfc41e0bf9463530fad50
+    image: rohitkalyan18/rohitkalyan.in:sha-ba1fe1645e170a27376c8dca0202710346e33078
     ports:
     - 1810:80
     restart: "unless-stopped"
