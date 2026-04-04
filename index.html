@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rohit Kalyan Kandulapati</title>
-  <link rel="icon" type="image/jpeg" href="favicon.jpg">
+  <link rel="icon" type="image/jpeg" href="icon.jpg">
   <link rel="apple-touch-icon" href="favicon.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
@@ -163,39 +163,6 @@
       margin: 1.8rem 0;
     }
 
-    /* post list */
-    .post-list { list-style: none; }
-    .post-list li { display: flex; gap: 0.5rem; line-height: 1.7; }
-    .post-list .bullet { color: var(--green); flex-shrink: 0; }
-    .post-list a {
-      color: var(--fg);
-      text-decoration: none;
-      display: flex;
-      justify-content: space-between;
-      flex: 1;
-      gap: 1rem;
-      transition: color 0.15s;
-    }
-    .post-list a:hover { color: var(--green-bright); }
-    .post-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .post-date  { color: var(--dim); flex-shrink: 0; font-size: 11px; }
-    .post-empty { color: var(--dim); }
-
-    /* hand-drawn all posts */
-    .blog-all {
-      display: block;
-      margin-top: 1rem;
-      text-decoration: none;
-      width: fit-content;
-    }
-    .blog-all .hand-text {
-      fill: var(--green);
-      font-family: 'Caveat', cursive;
-      font-size: 16px;
-      font-weight: 600;
-    }
-    .blog-all:hover .hand-text { opacity: 0.7; }
-
     @media (max-width: 480px) {
       body { padding: 4rem 1.25rem 4rem; }
     }
@@ -206,7 +173,7 @@
 
   <nav class="site-nav">
     <a href="/" class="active">home</a>
-    <a href="/blog">blog</a>
+    <a href="https://blog.rohitkalyan.in" target="_blank" rel="noopener">blog</a>
   </nav>
 
   <!-- whoami -->
@@ -259,28 +226,8 @@
     </a>
   </div>
 
-  <hr class="term-divider anim" id="s9">
-
-  <!-- ls posts/ -->
-  <div class="row anim" id="s10">
-    <span class="prompt">~$</span>
-    <span class="cmd" id="cmd5"></span><span class="cursor" id="cur5"></span>
-  </div>
-
-  <ul class="post-list gap-sm anim" id="post-list-wrap">
-    <li><span class="post-empty out-dim">no posts yet — check back soon.</span></li>
-  </ul>
-
-  <div class="anim" id="s11">
-    <a href="/blog" class="blog-all" aria-label="All posts">
-      <svg width="130" height="24" viewBox="0 0 130 24" overflow="visible">
-        <text class="hand-text" x="2" y="18" transform="rotate(-3,2,18)">all posts →</text>
-      </svg>
-    </a>
-  </div>
-
   <!-- open prompt -->
-  <div class="row gap-lg anim" id="s12">
+  <div class="row gap-lg anim" id="s9">
     <span class="prompt">~$</span>
     <span class="cursor"></span>
   </div>
@@ -350,41 +297,9 @@
     await sleep(300);
 
     show('s9');
-    await sleep(180);
-
-    show('s10');
-    await type('cmd5', 'ls -lt posts/ | head -3', 48);
-    await sleep(120);
-    hideCursor('cur5');
-    show('post-list-wrap');
-    await sleep(200);
-
-    show('s11');
-    await sleep(120);
-    show('s12');
   }
 
   run();
-
-  (async () => {
-    try {
-      const res = await fetch('/posts-json/');
-      if (!res.ok) return;
-      const files = await res.json();
-      const posts = files
-        .filter(f => f.name.endsWith('.html') && f.name !== 'post-template.html')
-        .sort((a, b) => new Date(b.mtime) - new Date(a.mtime))
-        .slice(0, 3);
-      if (!posts.length) return;
-      const list = document.getElementById('post-list-wrap');
-      list.innerHTML = posts.map(f => {
-        const title = f.name.replace('.html','').split('-')
-          .map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-        const label = new Date(f.mtime).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-        return '<li><span class="bullet">-rw</span><a href="/blog/' + f.name + '"><span class="post-title">' + title + '</span><span class="post-date">' + label + '</span></a></li>';
-      }).join('');
-    } catch(e) {}
-  })();
 </script>
 </body>
 </html>
