@@ -2,8 +2,8 @@ name: Build, Update docker-compose.yaml
 on:
   workflow_dispatch:
   push:
-    paths:
-    - "posts/*"
+    branches:
+    - main
 env:
   REPOSITORY: rohitkalyan.in
 jobs:
