@@ -1,408 +1,538 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rohit Kalyan Kandulapati - CKA-certified DevOps Engineer working with AWS, EKS, CI/CD, and infrastructure automation.">
-  <title>Rohit Kalyan Kandulapati</title>
+  <meta name="description" content="Rohit Kalyan Kandulapati — Platform & DevOps Engineer. CKA-certified, building cloud-native platforms with AWS, Kubernetes, and GitOps.">
+  <meta name="keywords" content="Platform Engineer, DevOps, Kubernetes, AWS, EKS, Terraform, CI/CD, GitOps, Docker">
+  <meta name="author" content="Rohit Kalyan Kandulapati">
+  <meta property="og:title" content="Rohit Kalyan Kandulapati — Platform & DevOps Engineer">
+  <meta property="og:description" content="CKA-certified Platform & DevOps Engineer building cloud-native platforms with AWS, Kubernetes, and GitOps.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rohitkalyan.in">
+  <title>Rohit Kalyan Kandulapati — Platform & DevOps Engineer</title>
   <link rel="icon" type="image/jpeg" href="icon.jpg">
   <link rel="apple-touch-icon" href="favicon.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0c0c0c;
-      --fg: #d4d0c8;
-      --dim: #4a4845;
-      --line: #1e1e1b;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: "Geist Mono", monospace;
-      font-weight: 300;
-      font-size: 13px;
-      line-height: 1.7;
-      min-height: 100vh;
-      padding: 5rem 1.5rem 5rem;
-      display: flex;
-      justify-content: center;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(0, 0, 0, 0.04) 2px, rgba(0, 0, 0, 0.04) 4px
-      );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    main {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 610px;
-    }
-
-    .site-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .site-nav a {
-      font-size: 0.65rem;
-      color: var(--dim);
-      text-decoration: none;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-      position: relative;
-    }
-
-    .site-nav a:hover { color: var(--fg); }
-    .site-nav a.active { color: var(--green); }
-    .site-nav a.active::after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: var(--green);
-    }
-
-    .anim {
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-
-    .anim.show { opacity: 1; }
-
-    .row {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      line-height: 1.7;
-    }
-
-    .prompt {
-      color: var(--green);
-      flex-shrink: 0;
-      user-select: none;
-    }
-
-    .cmd, .out { color: var(--fg); }
-    .out-dim { color: var(--dim); }
-
-    .name-out {
-      font-size: clamp(1.3rem, 4vw, 1.8rem);
-      font-weight: 400;
-      color: var(--fg);
-      letter-spacing: 0;
-      line-height: 1.2;
-    }
-
-    .name-em,
-    .hl {
-      font-style: italic;
-      color: var(--green);
-      font-weight: 300;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 7px;
-      height: 0.85em;
-      background: var(--green);
-      vertical-align: text-bottom;
-      margin-left: 1px;
-      animation: blink 1.1s step-end infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    .cursor.off { display: none; }
-
-    .gap-sm { margin-top: 0.6rem; }
-    .gap-md { margin-top: 1.4rem; }
-    .gap-lg { margin-top: 2.2rem; }
-
-    .skills-row {
-      flex-wrap: wrap;
-      align-items: baseline;
-    }
-
-    .skill {
-      color: var(--dim);
-      cursor: default;
-      transition: color 0.15s;
-      font-size: 13px;
-    }
-
-    .skill:hover { color: var(--green); }
-
-    .project-name {
-      color: var(--green-bright);
-      font-weight: 400;
-    }
-
-    .project-link {
-      color: var(--dim);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .project-link:hover { color: var(--green); }
-
-    .sep-dot {
-      color: #2a2a27;
-      margin: 0 0.35rem;
-      font-size: 13px;
-    }
-
-    .icon-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .icon-links a {
-      color: var(--dim);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      transition: color 0.15s;
-    }
-
-    .icon-links a:hover,
-    .icon-links a:hover span { color: var(--green); }
-
-    .icon-links svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-
-    .icon-links span {
-      color: var(--fg);
-      font-size: 13px;
-    }
-
-    .term-divider {
-      border: none;
-      border-top: 1px solid var(--line);
-      margin: 1.8rem 0;
-    }
-
-    @media (max-width: 480px) {
-      body { padding: 4rem 1.25rem 4rem; }
-      .row { align-items: flex-start; }
-    }
-  </style>
-
-  <script>
-    (function() {
-      const now = new Date();
-      const utc = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-      const istOffset = 5.5 * 60 * 60 * 1000;
-      const istTime = new Date(utc + istOffset);
-      const day = istTime.getDate();
-      
-      const root = document.documentElement;
-      if (day % 2 === 0) {
-        root.style.setProperty('--green', '#F0544F');
-        root.style.setProperty('--green-bright', '#F0544F');
-      } else {
-        root.style.setProperty('--green', '#7aa87a');
-        root.style.setProperty('--green-bright', '#9ec89e');
-      }
-    })();
-  </script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<main>
-  <nav class="site-nav">
-    <a href="/" class="active">home</a>
-    <a href="#projects">projects</a>
-    <a href="#contact">contact</a>
-    <a href="assets/RohitKandulapati_DevOps_Resume.pdf">resume</a>
-    <a href="https://blog.rohitkalyan.in" target="_blank" rel="noopener">blog</a>
-    <a href="https://www.credly.com/users/rohit-kandulapati/badges/credly" target="_blank" rel="noopener">credly</a>
-  </nav>
 
-  <div class="row anim" id="s1">
-    <span class="prompt">~$</span>
-    <span class="cmd" id="cmd1"></span><span class="cursor" id="cur1"></span>
-  </div>
-  <div class="row gap-sm anim" id="s2">
-    <span class="name-out">Rohit <em class="name-em">Kalyan</em> Kandulapati</span>
-  </div>
-
-  <div class="row gap-md anim" id="s3">
-    <span class="prompt">~$</span>
-    <span class="cmd" id="cmd2"></span><span class="cursor" id="cur2"></span>
-  </div>
-  <div class="anim" id="s4" style="opacity:0">
-    <div class="row gap-sm" style="opacity:0"><span class="out">DevOps Engineer based in Hyderabad, India.</span></div>
-    <div class="row" style="opacity:0"><span class="out">I build and operate <em class="hl">AWS</em> and <em class="hl">Kubernetes</em> platforms for enterprise applications.</span></div>
-    <div class="row" style="opacity:0"><span class="out">Most of my work is around safer releases, GitOps delivery, infrastructure automation, and removing the manual work that slows engineering teams down.</span></div>
-    <div class="row" style="opacity:0"><span class="out">Currently at <em class="hl">Carelon Global Solutions</em>. <em class="hl">CKA certified.</em></span></div>
-  </div>
-
-  <div class="row gap-md anim" id="s5">
-    <span class="prompt">~$</span>
-    <span class="cmd" id="cmd3"></span><span class="cursor" id="cur3"></span>
-  </div>
-  <div class="anim" id="s6" style="opacity:0">
-    <div class="row gap-sm" style="opacity:0"><span class="out">- Reduced planned maintenance downtime by <em class="hl">85%</em> using blue-green deployments on Amazon EKS.</span></div>
-    <div class="row" style="opacity:0"><span class="out">- Containerized enterprise workloads across six environments, improving compute usage by <em class="hl">40%</em>.</span></div>
-    <div class="row" style="opacity:0"><span class="out">- Automated Tomcat operations across 40+ servers, saving about <em class="hl">42 hours/week</em> of team effort.</span></div>
-    <div class="row" style="opacity:0"><span class="out">- Support platforms spanning 13+ applications across EKS, Linux, and Tomcat environments.</span></div>
-  </div>
-
-  <div class="row gap-md anim" id="s7">
-    <span class="prompt">~$</span>
-    <span class="cmd" id="cmd4"></span><span class="cursor" id="cur4"></span>
-  </div>
-  <div class="row gap-sm skills-row anim" id="s8">
-    <span class="skill">kubernetes</span><span class="sep-dot">.</span><span class="skill">eks</span><span class="sep-dot">.</span><span class="skill">aws</span><span class="sep-dot">.</span><span class="skill">terraform</span><span class="sep-dot">.</span><span class="skill">jenkins</span><span class="sep-dot">.</span><span class="skill">argo cd</span><span class="sep-dot">.</span><span class="skill">github actions</span><span class="sep-dot">.</span><span class="skill">docker</span><span class="sep-dot">.</span><span class="skill">ansible</span><span class="sep-dot">.</span><span class="skill">python</span><span class="sep-dot">.</span><span class="skill">bash</span><span class="sep-dot">.</span><span class="skill">linux</span>
-  </div>
-
-  <div id="projects" class="row gap-md anim">
-    <span class="prompt">~$</span>
-    <span class="cmd" id="cmd5"></span><span class="cursor" id="cur5"></span>
-  </div>
-  <div class="anim" id="s9" style="opacity:0">
-    <div class="row gap-sm" style="opacity:0"><span class="out"><span class="project-name">QR Code Generator</span> - Cloud-native DevOps platform.</span></div>
-    <div class="row" style="opacity:0"><span class="out out-dim">Terraform-provisioned AWS infrastructure with EKS, VPC, IAM, Helm, Argo CD GitOps, GitHub Actions, and IRSA-backed S3 access.</span></div>
-    <div class="row" style="opacity:0"><span class="out"><a class="project-link" href="https://github.com/rohit-kandulapati/devops-qr-code" target="_blank" rel="noopener">github.com/rohit-kandulapati/devops-qr-code<em class="hl">↗</em></a></span></div>
-    <div class="row gap-sm" style="opacity:0"><span class="out"><span class="project-name">Kafka KRaft</span> - Custom containerized Kafka service.</span></div>
-    <div class="row" style="opacity:0"><span class="out out-dim">Built a minimal Alpine-based Kafka image using ZooKeeper-free KRaft mode, then deployed a 3-node StatefulSet on Kubernetes with PersistentVolumes.</span></div>
-    <div class="row" style="opacity:0"><span class="out"><a class="project-link" href="https://github.com/rohit-kandulapati/kafka-kraft-alpine" target="_blank" rel="noopener">github.com/rohit-kandulapati/kafka-kraft-alpine<em class="hl">↗</em></a></span></div>
-  </div>
-
-  <div id="contact" class="row gap-md anim">
-    <span class="prompt">~$</span>
-    <span class="cmd" id="cmd6"></span><span class="cursor" id="cur6"></span>
-  </div>
-  <div class="icon-links gap-sm anim" id="s10" style="opacity:0">
-    <a href="https://github.com/rohit-kandulapati" style="opacity:0" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-      <span>github.com/rohit-kandulapati</span>
+<!-- ======================== NAVIGATION ======================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="accent">&gt;</span> rohitkalyan
     </a>
-    <a href="https://www.linkedin.com/in/rohit-kandulapati/" style="opacity:0" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      <span>linkedin.com/in/rohit-kandulapati</span>
-    </a>
-    <a href="mailto:rohitkalyank@outlook.com" style="opacity:0">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      <span>rohitkalyank@outlook.com</span>
-    </a>
+    <ul class="nav-links">
+      <li><a href="#about" class="active">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="assets/RohitKandulapati_DevOps_Resume.pdf" class="nav-resume" target="_blank" rel="noopener">Resume</a></li>
+      <li>
+        <button class="nav-terminal-btn" aria-label="Toggle terminal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          terminal
+        </button>
+      </li>
+    </ul>
+    <button class="nav-mobile-toggle" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
   </div>
+</nav>
 
-  <div class="row gap-lg anim" id="s11">
-    <span class="prompt">~$</span>
-    <span class="cursor"></span>
+<!-- ======================== HERO ======================== -->
+<section class="hero" id="home">
+  <canvas class="hero-canvas" id="hero-canvas"></canvas>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <div class="hero-greeting" data-reveal="fade-up">Hello, I'm</div>
+    <h1 class="hero-name" data-reveal="fade-up" data-delay="100">
+      Rohit <span class="accent">Kalyan</span> Kandulapati
+    </h1>
+    <p class="hero-title" data-reveal="fade-up" data-delay="200">Platform & DevOps Engineer</p>
+    <p class="hero-tagline" data-reveal="fade-up" data-delay="300">
+      Building and operating cloud-native platforms with AWS, Kubernetes, and GitOps. Passionate about infrastructure automation, safer releases, and removing the manual work that slows engineering teams down.
+    </p>
+    <div class="hero-actions" data-reveal="fade-up" data-delay="400">
+      <a href="assets/RohitKandulapati_DevOps_Resume.pdf" class="btn btn-primary" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        View Resume
+      </a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
   </div>
-</main>
+  <div class="hero-scroll-indicator">
+    <div class="mouse"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
 
+<!-- ======================== ABOUT ======================== -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div data-reveal="fade-left">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">Platform engineering is where I thrive.</h2>
+        <div class="about-text">
+          <p>
+            I'm a <span class="highlight">Platform & DevOps Engineer</span> based in Hyderabad, India, currently at
+            <span class="highlight">Carelon Global Solutions</span>. I build and operate AWS and Kubernetes platforms
+            for enterprise applications.
+          </p>
+          <p>
+            Most of my work revolves around safer releases through blue-green deployments, GitOps-driven delivery
+            with Argo CD, infrastructure automation via Terraform, and eliminating the toil that slows engineering
+            teams down.
+          </p>
+          <p>
+            I hold the <span class="highlight">Certified Kubernetes Administrator (CKA)</span> certification and am
+            deeply passionate about building reliable, scalable platform infrastructure.
+          </p>
+        </div>
+      </div>
+      <div class="about-stats" data-reveal="fade-right" data-delay="200">
+        <div class="stat-card">
+          <div class="stat-number" data-count="85" data-suffix="%">0%</div>
+          <div class="stat-label">Downtime Reduced</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="40" data-suffix="%">0%</div>
+          <div class="stat-label">Compute Improved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="42" data-suffix="hr">0hr</div>
+          <div class="stat-label">Saved Per Week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="13" data-suffix="+">0+</div>
+          <div class="stat-label">Applications Supported</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== SKILLS ======================== -->
+<section class="section" id="skills">
+  <div class="container">
+    <div data-reveal="fade-up">
+      <div class="section-label">Technical Skills</div>
+      <h2 class="section-title">Tools & technologies I work with.</h2>
+      <p class="section-subtitle">
+        From cloud infrastructure to CI/CD pipelines, I use a broad set of tools to build and maintain reliable platforms.
+      </p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-category" data-reveal="fade-up" data-delay="0">
+        <div class="skill-category-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="skill-category-title">Cloud & Orchestration</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">EKS</span>
+          <span class="skill-tag">Kubernetes</span>
+          <span class="skill-tag">Docker</span>
+        </div>
+      </div>
+      <div class="skill-category" data-reveal="fade-up" data-delay="100">
+        <div class="skill-category-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h3 class="skill-category-title">IaC & Configuration</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Terraform</span>
+          <span class="skill-tag">Ansible</span>
+          <span class="skill-tag">Helm</span>
+        </div>
+      </div>
+      <div class="skill-category" data-reveal="fade-up" data-delay="200">
+        <div class="skill-category-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3 class="skill-category-title">CI/CD & GitOps</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Jenkins</span>
+          <span class="skill-tag">Argo CD</span>
+          <span class="skill-tag">GitHub Actions</span>
+        </div>
+      </div>
+      <div class="skill-category" data-reveal="fade-up" data-delay="300">
+        <div class="skill-category-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3 class="skill-category-title">Languages & OS</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Bash</span>
+          <span class="skill-tag">Linux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== IMPACT METRICS ======================== -->
+<section class="section" id="impact">
+  <div class="container">
+    <div data-reveal="fade-up">
+      <div class="section-label">Impact</div>
+      <h2 class="section-title">Numbers that speak for themselves.</h2>
+      <p class="section-subtitle">
+        Real results from building and operating platform infrastructure at scale.
+      </p>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card" data-reveal="scale-in" data-delay="0">
+        <div class="metric-value"><span data-count="85" data-suffix="%">0%</span></div>
+        <div class="metric-description">Reduction in planned maintenance downtime using blue-green deployments on EKS</div>
+      </div>
+      <div class="metric-card" data-reveal="scale-in" data-delay="100">
+        <div class="metric-value"><span data-count="40" data-suffix="%">0%</span></div>
+        <div class="metric-description">Improvement in compute utilization by containerizing workloads across six environments</div>
+      </div>
+      <div class="metric-card" data-reveal="scale-in" data-delay="200">
+        <div class="metric-value"><span data-count="42" data-suffix="hr">0hr</span></div>
+        <div class="metric-description">Team hours saved per week by automating Tomcat operations across 40+ servers</div>
+      </div>
+      <div class="metric-card" data-reveal="scale-in" data-delay="300">
+        <div class="metric-value"><span data-count="13" data-suffix="+">0+</span></div>
+        <div class="metric-description">Enterprise applications supported across EKS, Linux, and Tomcat environments</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== TIMELINE ======================== -->
+<section class="section" id="experience">
+  <div class="container">
+    <div data-reveal="fade-up">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">My journey so far.</h2>
+      <p class="section-subtitle">
+        A timeline of roles and milestones that shaped my expertise in platform engineering.
+      </p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item" data-reveal="fade-up" data-delay="0">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2022 — Present</div>
+        <h3 class="timeline-title">DevOps Engineer</h3>
+        <div class="timeline-org">Carelon Global Solutions</div>
+        <p class="timeline-desc">
+          Building and operating AWS EKS platforms for enterprise healthcare applications. Implemented blue-green
+          deployments reducing downtime by 85%, automated infrastructure with Terraform and Ansible, and established
+          GitOps workflows with Argo CD and GitHub Actions.
+        </p>
+      </div>
+      <div class="timeline-item" data-reveal="fade-up" data-delay="100">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Certifications</div>
+        <h3 class="timeline-title">Certified Kubernetes Administrator (CKA)</h3>
+        <div class="timeline-org">Cloud Native Computing Foundation</div>
+        <p class="timeline-desc">
+          Demonstrated expertise in Kubernetes cluster administration, networking, storage, security,
+          troubleshooting, and workload scheduling.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PROJECTS ======================== -->
+<section class="section" id="projects">
+  <div class="container">
+    <div data-reveal="fade-up">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">Featured work.</h2>
+      <p class="section-subtitle">
+        Hands-on projects showcasing cloud-native architecture and platform engineering practices.
+      </p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card" data-reveal="fade-up" data-delay="0">
+        <div class="project-card-header">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/rohit-kandulapati/devops-qr-code" class="project-link" target="_blank" rel="noopener" aria-label="GitHub repository">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+        <h3 class="project-name">QR Code Generator</h3>
+        <p class="project-desc">
+          A cloud-native DevOps platform featuring Terraform-provisioned AWS infrastructure with EKS, VPC, IAM,
+          Helm charts, Argo CD GitOps, GitHub Actions CI/CD, and IRSA-backed S3 access. End-to-end deployment
+          automation from code commit to production.
+        </p>
+        <div class="project-tech">
+          <span class="project-tech-tag">Terraform</span>
+          <span class="project-tech-tag">AWS EKS</span>
+          <span class="project-tech-tag">Argo CD</span>
+          <span class="project-tech-tag">Helm</span>
+          <span class="project-tech-tag">GitHub Actions</span>
+          <span class="project-tech-tag">IRSA</span>
+        </div>
+      </div>
+      <div class="project-card" data-reveal="fade-up" data-delay="150">
+        <div class="project-card-header">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/rohit-kandulapati/kafka-kraft-alpine" class="project-link" target="_blank" rel="noopener" aria-label="GitHub repository">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+        <h3 class="project-name">Kafka KRaft</h3>
+        <p class="project-desc">
+          Built a minimal Alpine-based Apache Kafka image using ZooKeeper-free KRaft mode, then deployed a
+          3-node StatefulSet on Kubernetes with PersistentVolumes. A hands-on exploration of modern Kafka
+          architecture without legacy dependencies.
+        </p>
+        <div class="project-tech">
+          <span class="project-tech-tag">Apache Kafka</span>
+          <span class="project-tech-tag">KRaft</span>
+          <span class="project-tech-tag">Alpine Linux</span>
+          <span class="project-tech-tag">Kubernetes</span>
+          <span class="project-tech-tag">StatefulSet</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== CERTIFICATIONS ======================== -->
+<section class="section" id="certifications">
+  <div class="container">
+    <div data-reveal="fade-up">
+      <div class="section-label">Certifications</div>
+      <h2 class="section-title">Validated expertise.</h2>
+      <p class="section-subtitle">
+        Industry-recognized certifications that validate my skills in cloud-native technologies.
+      </p>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card" data-reveal="fade-up" data-delay="0">
+        <div class="cert-badge">CKA</div>
+        <div class="cert-info">
+          <h4>Certified Kubernetes Administrator</h4>
+          <p>Cloud Native Computing Foundation</p>
+          <a href="https://www.credly.com/users/rohit-kandulapati/badges/credly" target="_blank" rel="noopener">View on Credly →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== GITHUB STATS ======================== -->
+<section class="section" id="github">
+  <div class="container">
+    <div data-reveal="fade-up">
+      <div class="section-label">GitHub</div>
+      <h2 class="section-title">Open source contributions.</h2>
+      <p class="section-subtitle">
+        My public activity on GitHub — repositories, contributions, and open source work.
+      </p>
+    </div>
+    <div class="github-card" data-reveal="scale-in">
+      <div class="github-graph-wrapper">
+        <img src="https://ghchart.rshah.org/rohit-kandulapati" alt="Rohit Kandulapati's GitHub contribution graph" class="contribution-graph" loading="lazy">
+      </div>
+      <a href="https://github.com/rohit-kandulapati" class="github-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        View GitHub Profile
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== BLOG ======================== -->
+<section class="section" id="blog">
+  <div class="container">
+    <div data-reveal="fade-up">
+      <div class="section-label">Blog</div>
+      <h2 class="section-title">Latest writings.</h2>
+      <p class="section-subtitle">
+        Thoughts on DevOps, platform engineering, and cloud-native architecture.
+      </p>
+    </div>
+    <div class="blog-grid">
+      <a href="https://blog.rohitkalyan.in" class="blog-card" data-reveal="fade-up" data-delay="0" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div class="blog-date">Featured</div>
+        <h3 class="blog-title">Blue-Green Deployments on Kubernetes</h3>
+        <p class="blog-excerpt">
+          A deep dive into implementing blue-green deployment strategies on Amazon EKS, reducing maintenance
+          downtime by 85% while ensuring zero-downtime releases for enterprise applications.
+        </p>
+        <span class="blog-read-more">Read on blog</span>
+      </a>
+      <a href="https://blog.rohitkalyan.in" class="blog-card" data-reveal="fade-up" data-delay="100" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div class="blog-date">Featured</div>
+        <h3 class="blog-title">Layered Architecture with Docker Volumes</h3>
+        <p class="blog-excerpt">
+          Understanding Docker's layered filesystem and how strategic volume management can optimize container
+          performance, reduce image sizes, and improve development workflows.
+        </p>
+        <span class="blog-read-more">Read on blog</span>
+      </a>
+      <a href="https://blog.rohitkalyan.in" class="blog-card" data-reveal="fade-up" data-delay="200" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div class="blog-date">More</div>
+        <h3 class="blog-title">Explore All Posts</h3>
+        <p class="blog-excerpt">
+          Visit the blog for more articles on Kubernetes, AWS, Terraform, GitOps, and platform engineering
+          best practices.
+        </p>
+        <span class="blog-read-more">Go to blog</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== RECOGNITION ======================== -->
+<section class="section" id="recognition">
+  <div class="container">
+    <div data-reveal="fade-up">
+      <div class="section-label">Recognition</div>
+      <h2 class="section-title">Awards & appreciation.</h2>
+    </div>
+    <div class="testimonial-card" data-reveal="fade-up" data-delay="0" style="max-width:700px;">
+      <p class="testimonial-quote">
+        Grateful to be recognized with Integrity, Agility and Community Impact Awards at Elevance Health
+        for delivering environments, driving automation initiatives and proactively addressing platform needs.
+        Thanks to the entire team for the trust and support.
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">RK</div>
+        <div>
+          <div class="testimonial-name">Rohit Kalyan Kandulapati</div>
+          <div class="testimonial-role">Elevance Health / Carelon Global Solutions</div>
+        </div>
+      </div>
+      <a href="https://lnkd.in/p/dtH9p93R" class="github-link" target="_blank" rel="noopener" style="margin-top:16px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        View on LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== CONTACT ======================== -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div data-reveal="fade-left">
+        <div class="section-label">Contact</div>
+        <h2 class="section-title">Let's connect.</h2>
+        <div class="contact-text">
+          <p>
+            Whether you have a question, want to collaborate on a project, or just want to say hello —
+            my inbox is always open.
+          </p>
+        </div>
+        <div class="contact-links">
+          <a href="https://github.com/rohit-kandulapati" class="contact-link" target="_blank" rel="noopener">
+            <div class="contact-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </div>
+            <div>
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-text">github.com/rohit-kandulapati</div>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/rohit-kandulapati/" class="contact-link" target="_blank" rel="noopener">
+            <div class="contact-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-text">linkedin.com/in/rohit-kandulapati</div>
+            </div>
+          </a>
+          <a href="mailto:rohitkalyank@outlook.com" class="contact-link">
+            <div class="contact-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-text">rohitkalyank@outlook.com</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div data-reveal="fade-right" data-delay="200">
+        <form class="contact-form" onsubmit="handleContactSubmit(event)">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" placeholder="Your Message" required></textarea>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FOOTER ======================== -->
+<footer class="footer">
+  <div class="container">
+    <p>Built with <span class="accent">&lt;code/&gt;</span> by Rohit Kalyan Kandulapati</p>
+  </div>
+</footer>
+
+<!-- ======================== TERMINAL WIDGET ======================== -->
+<div class="terminal-widget">
+  <div class="terminal-panel">
+    <div class="terminal-header">
+      <div class="terminal-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="terminal-title">rohitkalyan@platform ~ </span>
+    </div>
+    <div class="terminal-body"></div>
+    <div class="terminal-input-row">
+      <span class="prompt">❯</span>
+      <input type="text" class="terminal-input" placeholder="Type a command..." autocomplete="off" spellcheck="false">
+    </div>
+  </div>
+  <button class="terminal-toggle" aria-label="Toggle terminal">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+  </button>
+</div>
+
+<!-- ======================== SCRIPTS ======================== -->
+<script src="js/particles.js"></script>
+<script src="js/scroll-animations.js"></script>
+<script src="js/terminal.js"></script>
+<script src="js/main.js"></script>
 <script>
-  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-  function show(id) {
-    const el = document.getElementById(id);
-    if (el) {
-      el.style.opacity = "1";
-      el.style.transition = "none";
-    }
+  function handleContactSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const message = form.message.value;
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+    window.location.href = `mailto:rohitkalyank@outlook.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${body}`;
+    form.reset();
   }
 
-  function hideCursor(id) {
-    const el = document.getElementById(id);
-    if (el) el.classList.add("off");
-  }
-
-  async function type(cmdId, text, speed) {
-    const el = document.getElementById(cmdId);
-    if (!el) return;
-    for (const ch of text) {
-      el.textContent += ch;
-      await sleep(speed + Math.random() * 18);
-    }
-  }
-
-  async function showLines(parentId, delayBetween) {
-    const parent = document.getElementById(parentId);
-    if (!parent) return;
-    parent.style.opacity = "1";
-    for (const line of parent.children) {
-      line.style.opacity = "1";
-      await sleep(delayBetween);
-    }
-  }
-
-  async function run() {
-    await sleep(400);
-
-    show("s1");
-    await type("cmd1", "whoami", 70);
-    await sleep(120);
-    hideCursor("cur1");
-    show("s2");
-    await sleep(350);
-
-    show("s3");
-    await type("cmd2", "cat about.txt", 60);
-    await sleep(120);
-    hideCursor("cur2");
-    await showLines("s4", 80);
-    await sleep(300);
-
-    show("s5");
-    await type("cmd3", "cat impact.txt", 60);
-    await sleep(120);
-    hideCursor("cur3");
-    await showLines("s6", 80);
-    await sleep(300);
-
-    show("s7");
-    await type("cmd4", "cat skills.txt", 60);
-    await sleep(120);
-    hideCursor("cur4");
-    show("s8");
-    await sleep(300);
-
-    show("projects");
-    await type("cmd5", "cat projects.txt", 60);
-    await sleep(120);
-    hideCursor("cur5");
-    await showLines("s9", 80);
-    await sleep(300);
-
-    show("contact");
-    await type("cmd6", "cat contact.txt", 60);
-    await sleep(120);
-    hideCursor("cur6");
-    await showLines("s10", 100);
-    await sleep(300);
-
-    show("s11");
-  }
-
-  run();
+  // Wire up nav terminal button
+  document.querySelector('.nav-terminal-btn').addEventListener('click', () => {
+    document.querySelector('.terminal-toggle').click();
+  });
 </script>
 </body>
 </html>
