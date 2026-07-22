@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initCounters();
   initSkillBars();
+  initLearnToast();
 });
 
 function initNav() {
@@ -104,4 +105,17 @@ function initSkillBars() {
   );
 
   bars.forEach(bar => observer.observe(bar));
+}
+
+function initLearnToast() {
+  const link = document.querySelector('.nav-learn');
+  const toast = document.getElementById('toast');
+  if (!link || !toast) return;
+
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    toast.textContent = 'Coming Soon!';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  });
 }
