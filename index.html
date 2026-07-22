@@ -513,6 +513,9 @@
   </button>
 </div>
 
+<!-- ======================== TOAST ======================== -->
+<div class="toast" id="toast"></div>
+
 <!-- ======================== SCRIPTS ======================== -->
 <script src="js/particles.js"></script>
 <script src="js/scroll-animations.js"></script>
@@ -534,7 +537,15 @@
   document.querySelector('.nav-terminal-btn').addEventListener('click', () => {
     document.querySelector('.terminal-toggle').click();
   });
+
+  // Fallback: wire up Learn toast
+  document.querySelector('.nav-learn').addEventListener('click', (e) => {
+    e.preventDefault();
+    const toast = document.getElementById('toast');
+    toast.textContent = 'Coming Soon!';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  });
 </script>
-<div class="toast" id="toast"></div>
 </body>
 </html>
